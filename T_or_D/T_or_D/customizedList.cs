@@ -10,18 +10,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace T_or_D.Resources.layout
+namespace T_or_D
 {
     [Activity(Label = "customizedList")]
-    public class customizedList : ListActivity
+    public class customizedList : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);            
-            SetContentView(Resource.Layout.Main);
+            base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.customizedList);
             // Create your application here
-
-
         }
     }
 }

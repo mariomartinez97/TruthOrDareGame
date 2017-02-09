@@ -12,24 +12,14 @@ using Android.Widget;
 
 namespace T_or_D
 {
-    [Activity(Label = "customizedList")]
-    public class customizedList : Activity
+    [Activity(Label = "AddScreen")]
+    public class AddScreen : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.customizedList);
+            SetContentView(Resource.Layout.AddScreen);
             // Create your application here
-
-            //create list
-            List<string> listS = new List<string>();
-            //retrive old list if exists
-            
-            //add the new item to the list
-
-            //display list
-
-            //save list
 
         }
     }

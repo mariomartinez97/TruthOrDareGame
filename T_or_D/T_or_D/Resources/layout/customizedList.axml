@@ -9,7 +9,7 @@
         p1:layout_width="75.5dp"
         p1:layout_height="wrap_content"
         p1:layout_weight="10"
-        p1:id="@+id/button1"
+        p1:id="@+id/addButton"
         p1:layout_marginLeft="305.0dp" />
     <ListView
         p1:minWidth="25px"
@@ -17,17 +17,17 @@
         p1:layout_width="match_parent"
         p1:layout_height="match_parent"
         p1:layout_weight="80"
-        p1:id="@+id/listView1" />
+        p1:id="@android:id/list" />
     <Button
         p1:text="Continue"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:layout_weight="10"
-        p1:id="@+id/button2" />
+        p1:id="@+id/continueButton" />
     <Button
         p1:text="Cancel"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:layout_weight="10"
-        p1:id="@+id/button3" />
+        p1:id="@+id/cancelButton" />
 </LinearLayout>

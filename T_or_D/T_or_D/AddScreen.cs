@@ -32,10 +32,10 @@ namespace T_or_D
             {
                 EditText inputText = FindViewById<EditText>(Resource.Id.textInput);
                 string input = inputText.Text;
+                inputText.Text = null;
 
                 var saveString = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
                 var edit = saveString.Edit();
-
                 if (checkedButton.Id == Resource.Id.radioButtonTruth)
                 {
                     edit.PutString("Truths", input);
@@ -50,10 +50,22 @@ namespace T_or_D
                     Android.Widget.Toast.MakeText(this, "Added to the list", ToastLength.Short).Show();
                     inputText.Text = "";
                 }
+                inputText.Text = null;
+                
+                var intent = new Intent(this, typeof(customizedList));
+                StartActivity(intent);
             };
 
             cancelButton.Click += (sender, e) =>
-            {                                
+            {             
+                EditText inputText = FindViewById<EditText>(Resource.Id.textInput);
+                inputText.Text = null;
+
+                var saveString = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
+                var edit = saveString.Edit();
+                edit.Clear();
+                edit.Commit();
+
                 var intent = new Intent(this, typeof(customizedList));
                 StartActivity(intent);
             };

@@ -42,7 +42,7 @@ namespace T_or_D
             }
             if (sharedPref.Contains("DaresList"))
             {
-                listTruths.AddRange(sharedPref.GetStringSet("DaresList", null).ToArray());
+                listDares.AddRange(sharedPref.GetStringSet("DaresList", null).ToArray());
             }
 
             //add the new item to the list
@@ -54,7 +54,7 @@ namespace T_or_D
             if (sharedPref.Contains("Dares"))
             {
                 string newInput = sharedPref.GetString("Dares", null);
-                listTruths.Add(newInput);
+                listDares.Add(newInput);
             }
             //display list
             List<string> completeList = new List<string>();            
@@ -69,9 +69,15 @@ namespace T_or_D
             edit.PutStringSet("DaresList", listTruths);
             edit.Commit();
 
+
             cancelButton.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            };
+            continueButton.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(usersClass));
                 StartActivity(intent);
             };
 

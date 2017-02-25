@@ -9,12 +9,27 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Java.Interop;
 
 namespace T_or_D
 {
     [Activity(Label = "AddScreen")]
     public class AddScreen : Activity
     {
+        bool t = true;
+        [Export("radioButton_OnClick")]
+        public void radioButton_OnClick(View v)
+        {
+            switch (v.Id)
+            {
+                case Resource.Id.radioButtonTruth:
+                    t = true;
+                    break;
+                case Resource.Id.radioButtonDare:
+                    t = false;
+                     break;
+            }
+        }
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,26 +49,37 @@ namespace T_or_D
                 string input = inputText.Text;
                 inputText.Text = null;
 
-                var saveString = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
-                var edit = saveString.Edit();
-                if (checkedButton.Id == Resource.Id.radioButtonTruth)
+                var saveTruths = Application.Context.GetSharedPreferences("MySavedTruths", FileCreationMode.Private);
+                var editT = saveTruths.Edit();
+                var saveDares = Application.Context.GetSharedPreferences("MySavedDares", FileCreationMode.Private);
+                var editD = saveTruths.Edit();
+
+                if (inputText.Text != null)
                 {
-                    edit.PutString("Truths", input);
-                    edit.Commit();
-                    Android.Widget.Toast.MakeText(this, "Added to the list", ToastLength.Short).Show();
-                    inputText.Text = "";
+                    if (t)
+                    {
+                        editT.PutString("Truths", input);
+                        editT.Commit();
+                        Android.Widget.Toast.MakeText(this, "Added to the list", ToastLength.Short).Show();
+                        inputText.Text = "";
+                    }
+                    else if (t == false)
+                    {
+                        editD.PutString("Dares", input);
+                        editD.Commit();
+                        Android.Widget.Toast.MakeText(this, "Added to the list", ToastLength.Short).Show();
+                        inputText.Text = "";
+                    }
+                    inputText.Text = null;
+
+                    var intent = new Intent(this, typeof(customizedList));
+                    StartActivity(intent);
                 }
-                if (checkedButton.Id == Resource.Id.radioButtonCancel)
+                else
                 {
-                    edit.PutString("Dares", input);
-                    edit.Commit();
-                    Android.Widget.Toast.MakeText(this, "Added to the list", ToastLength.Short).Show();
-                    inputText.Text = "";
+                    Android.Widget.Toast.MakeText(this, "You cant have an empty truth or dare", ToastLength.Short).Show();
                 }
-                inputText.Text = null;
                 
-                var intent = new Intent(this, typeof(customizedList));
-                StartActivity(intent);
             };
 
             cancelButton.Click += (sender, e) =>
@@ -61,10 +87,15 @@ namespace T_or_D
                 EditText inputText = FindViewById<EditText>(Resource.Id.textInput);
                 inputText.Text = null;
 
-                var saveString = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
+                var saveStringA = Application.Context.GetSharedPreferences("MySavedDares", FileCreationMode.Private);
+                var editA = saveStringA.Edit();
+
+                var saveString = Application.Context.GetSharedPreferences("MySavedTruths", FileCreationMode.Private);
                 var edit = saveString.Edit();
                 edit.Clear();
                 edit.Commit();
+                editA.Clear();
+                editA.Commit();
 
                 var intent = new Intent(this, typeof(customizedList));
                 StartActivity(intent);

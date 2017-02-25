@@ -23,6 +23,7 @@ namespace T_or_D
 
             EditText inputText = FindViewById<EditText>(Resource.Id.textInput3);
             Button nextButton = FindViewById<Button>(Resource.Id.nextbutton);
+            Button endGame = FindViewById<Button>(Resource.Id.finishGame);
 
             List<string> listTruths = new List<string>();
             //retrive old list if exists
@@ -39,6 +40,11 @@ namespace T_or_D
             {
                 text = f.RandomUser(listTruths);
                 inputText.Text = text;
+            };
+            endGame.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
             };
             
         }

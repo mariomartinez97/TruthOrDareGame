@@ -6,7 +6,7 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
-        android:text="Medium Text"
+        android:text="Insert truth or dare"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="35.0dp"
@@ -21,18 +21,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/radioGroup1">
-        <RadioButton
+      <RadioButton
+          android:onClick="radioButton_OnClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Truth"
             android:id="@+id/radioButtonTruth"
             android:layout_marginLeft="130.0dp" />
-        <RadioButton
+      <RadioButton
+          android:onClick="radioButton_OnClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dare"
-            android:id="@+id/radioButtonCancel"
+            android:id="@+id/radioButtonDare"
             android:layout_marginLeft="130.0dp" />
     </RadioGroup>
     <Button

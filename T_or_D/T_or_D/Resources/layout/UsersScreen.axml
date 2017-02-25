@@ -9,11 +9,17 @@
         android:text="Add player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addUsers" />
+        android:id="@+id/addUsers"
+        android:layout_marginLeft="266.0dp" />
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="453.0dp"
         android:id="@android:id/list" />
+    <Button
+        android:text="Continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/continueOnUser" />
 </LinearLayout>

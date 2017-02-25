@@ -15,6 +15,11 @@ namespace T_or_D
     [Activity(Label = "customizedList")]
     public class customizedList : ListActivity
     {
+        //create list
+        List<string> listTruths = new List<string>();
+        List<string> listDares = new List<string>();
+        List<string> completeList = new List<string>();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -30,45 +35,47 @@ namespace T_or_D
                 var intent = new Intent(this, typeof(AddScreen));
                 StartActivity(intent);
             };
-            
-            //create list
-            List<string> listTruths = new List<string>();
-            List<string> listDares = new List<string>();
-            //retrive old list if exists
-            var sharedPref = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
-            if (sharedPref.Contains("TruthsList"))
-            {
-                listTruths.AddRange(sharedPref.GetStringSet("TruthsList",null).ToArray());
-            }
-            if (sharedPref.Contains("DaresList"))
-            {
-                listDares.AddRange(sharedPref.GetStringSet("DaresList", null).ToArray());
-            }
+
+            var saveTruths = Application.Context.GetSharedPreferences("MySavedTruths", FileCreationMode.Private);
+            var saveDares = Application.Context.GetSharedPreferences("MySavedDares", FileCreationMode.Private);
 
             //add the new item to the list
-            if (sharedPref.Contains("Truths"))
+            if (saveTruths.Contains("Truths"))
             {
-                string newInput = sharedPref.GetString("Truths", null);
+                string newInput = saveTruths.GetString("Truths", null);
                 listTruths.Add(newInput);
             }
-            if (sharedPref.Contains("Dares"))
+            if (saveDares.Contains("Dares"))
             {
-                string newInput = sharedPref.GetString("Dares", null);
+                string newInput = saveDares.GetString("Dares", null);
                 listDares.Add(newInput);
             }
+
+            //retrive old list if exists
+            if (saveTruths.Contains("TruthsList"))
+            {
+                listTruths.AddRange(saveTruths.GetStringSet("TruthsList", null).ToArray());
+            }
+            if (saveDares.Contains("DaresList"))
+            {
+                listDares.AddRange(saveDares.GetStringSet("DaresList", null).ToArray());
+            }
+
+            
             //display list
-            List<string> completeList = new List<string>();            
             completeList = listTruths.Concat(listDares).ToList();
             ListAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, completeList);
 
             //save list
-            var saveLists = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
-            var edit = saveLists.Edit();
 
-            edit.PutStringSet("TruthsList", listTruths);
-            edit.PutStringSet("DaresList", listTruths);
-            edit.Commit();
+            var editT = saveTruths.Edit();
+            var editD = saveTruths.Edit();
+            
 
+            editT.PutStringSet("TruthsList", listTruths);
+            editT.Commit();
+            editD.PutStringSet("DaresList", listDares);
+            editD.Commit();
 
             cancelButton.Click += (sender, e) =>
             {

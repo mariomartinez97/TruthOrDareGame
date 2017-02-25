@@ -25,23 +25,30 @@ protected override void OnCreate(Bundle savedInstanceState)
             // Create your application here
             SetContentView(Resource.Layout.UsersScreen);
             Button AddButton = FindViewById<Button>(Resource.Id.addUsers);
+            Button ContinueButton = FindViewById<Button>(Resource.Id.continueOnUser);
+            
             checkAdd();
+            ListAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, namesList);
+
             AddButton.Click += (object sender, EventArgs args) =>
             {
                 FragmentTransaction transaction = FragmentManager.BeginTransaction();
                 screenFragmentClass fragmentScreen = new screenFragmentClass();
+                fragmentScreen.mOnAddUser += FragmentScreen_mOnAddUser;
                 fragmentScreen.Show(transaction, "fragment");
 
-                fragmentScreen.mOnAddUser += FragmentScreen_mOnAddUser;
             };
-
+            ContinueButton.Click += (object sender, EventArgs args) =>
+            {
+                var intent = new Intent(this, typeof(DisplayC));
+                StartActivity(intent);
+            };
         }
-
         private void FragmentScreen_mOnAddUser(object sender, OnAddUserEventsArgs e)
         {
             var sharedPref = Application.Context.GetSharedPreferences("MySavedData", FileCreationMode.Private);
 
-
+            
             string a;
             a = e.Name;
             namesList.Add(a);
